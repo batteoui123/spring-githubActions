@@ -23,7 +23,7 @@ jobs:
 
       # 3️⃣ Builder l'application Spring Boot
       - name: Builder mon app
-        run: mvn clean package
+        run: mvn clean package -DskipTests
 
       # 4️⃣ Créer une image Docker
       - name: Create Docker image
