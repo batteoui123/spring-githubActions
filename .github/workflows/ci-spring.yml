@@ -59,10 +59,19 @@ jobs:
           mv *.jar target/
 
       - name: start docker compose
-        run: docker compose up
+        run: docker compose up -d
 
       - name: check running containers
         run: docker ps
+
+      - name: wait for spring boot start up
+        run: sleep 15
+
+      - name: tester l'end point
+        run:  curl http://localhost:8080/api/school/all
+
+      - name: stop services
+        run: docker compose down
 
 
 
