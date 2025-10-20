@@ -91,10 +91,12 @@ jobs:
       - name: move jar into target folder
         run: |
           mkdir -p target
-#          mv *.jar target/
+          mv *.jar target/
 
       - name: test where's my file
-        run: ls
+        run: |
+          cd target 
+          ls
 
 #      # Login Docker Hub
 #      - name: 🔐 Login Docker Hub
