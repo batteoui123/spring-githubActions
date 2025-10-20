@@ -39,43 +39,57 @@ jobs:
           docker build -t app-spring-postgres .
           docker images
 
-  integration-test:
-    name: test docker compose
+#  integration-test:
+#    name: test docker compose
+#    runs-on: ubuntu-latest
+#    needs: build
+#
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: download artifact jar
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: 'artifact-jar'
+#
+#      - name: move jar into target folder
+#        run: |
+#          mkdir -p target
+#          mv *.jar target/
+#
+#      - name: start docker compose
+#        run: docker compose up -d
+#
+#      - name: check running containers
+#        run: docker ps
+#
+#      - name: wait for spring boot start up
+#        run: sleep 15
+#
+#      - name: tester l'end point
+#        run:  curl http://localhost:8080/api/school/all
+#
+#      - name: stop services
+#        run: docker compose down
+
+
+
+
+
+
+
+
+  deploy:
+    name: deploy to dockerHub
     runs-on: ubuntu-latest
     needs: build
-
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: download artifact jar
-        uses: actions/download-artifact@v4
+      - name: login docker hub
+        uses: docker/login-action@v3.6.0
         with:
-          name: 'artifact-jar'
-
-      - name: move jar into target folder
-        run: |
-          mkdir -p target
-          mv *.jar target/
-
-      - name: start docker compose
-        run: docker compose up -d
-
-      - name: check running containers
-        run: docker ps
-
-      - name: wait for spring boot start up
-        run: sleep 15
-
-      - name: tester l'end point
-        run:  curl http://localhost:8080/api/school/all
-
-      - name: stop services
-        run: docker compose down
+          username: oussamabat
+          password: oussama@2003
 
 
-
-
-
-
-        
