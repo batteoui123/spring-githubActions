@@ -1,32 +1,41 @@
-name: CI for building Spring Boot and Docker image
+name: ci pipline for my mini project
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+
 
 jobs:
   build:
+    name: build and dockerize
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Cloner le code du dépôt
-      - name: Clone mon code
+      - name: checkout repo
         uses: actions/checkout@v4
 
-      # 2️⃣ Installer Java 23 (Temurin)
-      - name: Installer Java 23
+
+      - name: set up java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '23'
 
-      # 3️⃣ Builder l'application Spring Boot
-      - name: Builder mon app
-        run: mvn clean package -DskipTests
+      - name: build app
+        run: mvn -B clean package -DskipTests
 
-      # 4️⃣ Créer une image Docker
-      - name: Create Docker image
+      - name: upload jar artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'artifact-jar'
+          path: 'target/*.jar'
+
+      - name: build and list docker image
         run: |
-          docker build -t mon-app-spring .
+          docker build -t app-spring-postgres
           docker images
+        
