@@ -36,6 +36,6 @@ jobs:
 
       - name: build and list docker image
         run: |
-          docker build -t app-spring-postgres
+          docker build -t app-spring-postgres .
           docker images
         
