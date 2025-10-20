@@ -91,13 +91,15 @@ jobs:
         with:
           name: 'artifact-jar'
 
-      - name: test where's my file
-        run: ls
+
 
       - name: move jar into target folder
         run: |
           mkdir -p target
           mv *.jar target/
+
+      - name: test where's my file
+        run: ls
 
       # Login Docker Hub
       - name: 🔐 Login Docker Hub
