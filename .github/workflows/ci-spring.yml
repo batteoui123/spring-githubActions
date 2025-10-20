@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '23'
+          java-version: '17'
 
       - name: build app
         run: mvn -B clean package -DskipTests
@@ -48,10 +48,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: downloard artifact jar
+      - name: download artifact jar
         uses: actions/download-artifact@v4
         with:
           name: 'artifact-jar'
+
+      - name: move jar into target folder
+        run: |
+          mkdir -p target
+          mv *.jar target/
+
       - name: start docker compose
         run: docker compose up
 
