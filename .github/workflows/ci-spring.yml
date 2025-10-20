@@ -86,14 +86,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Télécharger le jar sauvegardé dans le job build
-      - name: Download artifact jar
+      - name: download artifact jar
         uses: actions/download-artifact@v4
         with:
-          name: artifact-jar
+          name: 'artifact-jar'
 
-      # Recréer le dossier target et y mettre le jar
-      - name: Prepare JAR for Docker
+      - name: move jar into target folder
         run: |
           mkdir -p target
           mv *.jar target/
